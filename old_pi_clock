@@ -1,0 +1,18 @@
+from time import sleep, strftime
+from subprocess import run, PIPE
+import lcddriver
+
+def run_cmd(cmd):
+    result = run(cmd, shell=True, stdout=PIPE, text=True)
+    return result.stdout.strip()
+
+def display_time_and_date(lcd):
+    lcd.lcd_clear()
+    while True:
+        lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
+        lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+        sleep(1)
+
+if __name__ == "__main__":
+    lcd = lcddriver.lcd()
+    display_time_and_date(lcd)
